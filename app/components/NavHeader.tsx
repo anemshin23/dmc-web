@@ -28,8 +28,8 @@ export function NavHeader({ variant = "floating" }: NavHeaderProps) {
 
   const isFloating = variant === "floating";
   const headerClasses = isFloating
-    ? "absolute top-8 left-6 right-6 z-20 mx-auto flex h-16 max-w-6xl items-center justify-between px-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10"
-    : "flex h-16 max-w-6xl w-full mx-auto items-center justify-between px-8 rounded-2xl bg-[var(--pages-boxes)] backdrop-blur-md border-2 border-[var(--pages-writing)]/30";
+    ? "absolute top-4 left-4 right-4 sm:top-8 sm:left-6 sm:right-6 z-20 mx-auto flex h-14 sm:h-16 max-w-6xl items-center justify-between px-4 sm:px-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10"
+    : "flex h-14 sm:h-16 max-w-6xl w-full mx-auto items-center justify-between px-4 sm:px-8 rounded-2xl bg-[var(--pages-boxes)] backdrop-blur-md border-2 border-[var(--pages-writing)]/30";
 
   const linkClasses = isFloating
     ? "text-sm font-medium text-white drop-shadow-sm hover:text-white/90 transition-colors"
@@ -67,7 +67,7 @@ export function NavHeader({ variant = "floating" }: NavHeaderProps) {
           <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
       </Link>
-      <nav className="flex items-center gap-8">
+      <nav className="flex items-center gap-4 sm:gap-8">
         <Link href="/learn-more" className={linkClasses}>
           Learn More
         </Link>

@@ -11,9 +11,9 @@ export default async function Home() {
   const contactEmail = settings.email || DEFAULT_CONTACT_EMAIL;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       {/* Hero with dmc.png background - full viewport */}
-      <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-screen min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden">
         <Image
           src="/dmc.png"
           alt=""
@@ -32,10 +32,10 @@ export default async function Home() {
         <div className="relative z-10 flex flex-col items-center justify-center gap-6 pt-12">
           {/* No LuLuMar replacement - empty hero */}
         </div>
-        <p className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-sm font-medium uppercase tracking-widest text-white/80">
+        <p className="absolute left-1/2 -translate-x-1/2 z-10 text-sm font-medium uppercase tracking-widest text-white/80 [bottom:calc(2rem+env(safe-area-inset-bottom))]">
           Scroll to connect
         </p>
-        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 animate-bounce" aria-hidden>
+        <span className="absolute left-1/2 -translate-x-1/2 z-10 animate-bounce [bottom:calc(0.5rem+env(safe-area-inset-bottom))]" aria-hidden>
           <svg className="h-5 w-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
@@ -43,12 +43,12 @@ export default async function Home() {
       </section>
 
       {/* Section below the fold: Join GroupMe (link), Email (mailto) */}
-      <section className="min-h-[50vh] w-full flex flex-col items-center justify-center gap-10 py-20 px-6 bg-[var(--pages-bg)]">
+      <section className="min-h-[50vh] w-full flex flex-col items-center justify-center gap-10 py-20 px-4 sm:px-6 bg-[var(--pages-bg)]">
         <a
           href={groupmeLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex w-80 min-w-[280px] items-center gap-4 rounded-2xl bg-[var(--pages-boxes)] border-2 border-[var(--pages-writing)]/20 px-8 py-5 shadow-sm hover:border-[var(--pages-writing)]/40 hover:shadow-md transition-all"
+          className="flex w-full max-w-[20rem] min-w-0 items-center gap-4 rounded-2xl bg-[var(--pages-boxes)] border-2 border-[var(--pages-writing)]/20 px-6 sm:px-8 py-5 shadow-sm hover:border-[var(--pages-writing)]/40 hover:shadow-md transition-all"
         >
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--pages-writing)]/15 text-[var(--pages-writing)]">
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -60,7 +60,7 @@ export default async function Home() {
 
         <a
           href={`mailto:${contactEmail}`}
-          className="flex w-80 min-w-[280px] items-center gap-4 rounded-2xl bg-[var(--pages-boxes)] border-2 border-[var(--pages-writing)]/20 px-8 py-5 shadow-sm hover:border-[var(--pages-writing)]/40 hover:shadow-md transition-all"
+          className="flex w-full max-w-[20rem] min-w-0 items-center gap-4 rounded-2xl bg-[var(--pages-boxes)] border-2 border-[var(--pages-writing)]/20 px-6 sm:px-8 py-5 shadow-sm hover:border-[var(--pages-writing)]/40 hover:shadow-md transition-all"
         >
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--pages-writing)]/15 text-[var(--pages-writing)]">
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
