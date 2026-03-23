@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Image from "next/image";
 import { NavHeader } from "./components/NavHeader";
 import { getSiteSettings } from "./lib/sanity";
@@ -13,12 +14,12 @@ export default async function Home() {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       {/* Hero with dmc.png background - full viewport */}
-      <section className="relative flex min-h-screen min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-screen min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-[var(--theme-purple)]">
         <Image
           src="/dmc.png"
           alt=""
           fill
-          className="object-cover object-center"
+          className="object-contain object-center sm:object-cover"
           priority
           sizes="100vw"
         />
