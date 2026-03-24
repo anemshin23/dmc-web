@@ -146,7 +146,11 @@ async function removeEndedUpcomingEvents(endedEvents: EventForPastSeed[]) {
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (!projectId || !dataset) return {};
   try {
-    const data = await client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
+    const data = await client.fetch<SiteSettings | null>(
+      SITE_SETTINGS_QUERY,
+      {},
+      { cache: "no-store" } // 👈 ADD THIS
+    );
     return data ?? {};
   } catch {
     return {};
