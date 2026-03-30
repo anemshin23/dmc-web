@@ -201,25 +201,34 @@ export async function getPastEvents(): Promise<SanityPastEvent[]> {
     await removeEndedUpcomingEvents(endedUpcoming);
 
     const refreshed = await client.fetch<SanityPastEvent[] | null>(PAST_EVENTS_QUERY);
-    const finalList = refreshed ?? manual;
+    const fromSanity = refreshed ?? manual;
 
-    if (finalList.length > 0) {
-      return finalList.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
-    }
+    // Merge: always include virtual "past" rows for ended upcoming events that are not
+    // already represented as a pastEvent (e.g. no write token on Vercel, or first visit).
+    // Previously we returned only fromSanity when length > 0, which hid events like
+    // "Battle of the Bands" whenever any other pastEvent doc existed.
+    const coveredSourceIds = new Set(
+      fromSanity.map((p) => p.sourceEventId).filter((id): id is string => Boolean(id))
+    );
+    const coveredPastSeedIds = new Set(fromSanity.map((p) => p._id));
 
-    // Fallback if write token is not configured: still show ended upcoming events as past.
-    const autoMovedPastEvents: SanityPastEvent[] = endedUpcoming
-      .filter((event) => !linkedEventIds.has(event._id))
+    const virtualPast: SanityPastEvent[] = endedUpcoming
+      .filter(
+        (event) =>
+          !coveredSourceIds.has(event._id) &&
+          !coveredPastSeedIds.has(toPastSeedDocId(event._id))
+      )
       .map((event) => ({
         _id: `auto-${event._id}`,
         title: event.title,
         date: event.date,
-        description: event.description,
+        description: event.description ?? "",
         imageUrls: [],
         sourceEventId: event._id,
       }));
 
-    return autoMovedPastEvents.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+    const merged = [...fromSanity, ...virtualPast];
+    return merged.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
   } catch {
     return [];
   }
